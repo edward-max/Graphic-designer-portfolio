@@ -1,0 +1,232 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Global Helpers ---
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        (request.auth.token.email_verified == true && request.auth.token.email == 'eddykoby64@gmail.com') ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // --- Validation Blueprints ---
+    function isValidProject(data) {
+      return data.keys().hasAll([
+        'id', 'title', 'category', 'description', 'image_url',
+        'gallery_images', 'year', 'client', 'featured', 'display_order',
+        'createdAt', 'updatedAt'
+      ])
+      && data.keys().hasOnly([
+        'id', 'title', 'category', 'description', 'image_url',
+        'gallery_images', 'year', 'client', 'featured', 'display_order',
+        'createdAt', 'updatedAt'
+      ])
+      && data.id is string && isValidId(data.id)
+      && data.title is string && data.title.size() >= 1 && data.title.size() <= 140
+      && data.category in ['Flyers', 'Branding', 'Social Media', 'Posters', 'Print Design', 'Other']
+      && data.description is string && data.description.size() >= 1 && data.description.size() <= 2000
+      && data.image_url is string && data.image_url.size() >= 1 && data.image_url.size() <= 2000
+      && data.gallery_images is list && data.gallery_images.size() <= 12
+      && (data.gallery_images.size() == 0 || (data.gallery_images[0] is string && data.gallery_images[0].size() <= 2000))
+      && data.year is string && data.year.size() >= 2 && data.year.size() <= 10
+      && data.client is string && data.client.size() <= 140
+      && data.featured is bool
+      && (data.display_order is int || data.display_order is float)
+      && data.createdAt is timestamp
+      && data.updatedAt is timestamp;
+    }
+
+    function isValidTestimonial(data) {
+      return data.keys().hasAll(['id', 'name', 'company', 'role', 'text', 'avatar', 'createdAt', 'updatedAt'])
+      && data.keys().hasOnly(['id', 'name', 'company', 'role', 'text', 'avatar', 'createdAt', 'updatedAt'])
+      && data.id is string && isValidId(data.id)
+      && data.name is string && data.name.size() >= 1 && data.name.size() <= 100
+      && data.company is string && data.company.size() >= 1 && data.company.size() <= 120
+      && data.role is string && data.role.size() >= 1 && data.role.size() <= 100
+      && data.text is string && data.text.size() >= 1 && data.text.size() <= 1200
+      && data.avatar is string && data.avatar.size() <= 2000
+      && data.createdAt is timestamp
+      && data.updatedAt is timestamp;
+    }
+
+    function isValidToolItem(tool) {
+      return tool is map
+      && tool.keys().hasAll(['name', 'level', 'category'])
+      && tool.keys().hasOnly(['name', 'level', 'category'])
+      && tool.name is string && tool.name.size() >= 1 && tool.name.size() <= 100
+      && tool.level is string && tool.level.size() >= 1 && tool.level.size() <= 60
+      && tool.category is string && tool.category.size() >= 1 && tool.category.size() <= 120;
+    }
+
+    function isValidSiteSettings(data) {
+      return data.keys().hasAll([
+        'creativeProjects', 'designServices', 'yearsExperience', 'happyClients',
+        'whatsappNumber', 'email', 'instagramUrl', 'linkedinUrl', 'behanceUrl', 'facebookUrl',
+        'profileImageUrl', 'heroAvailability', 'heroHeadline', 'heroHeadlineAccent',
+        'heroSubtext', 'heroShowcaseTitle', 'heroShowcaseSubtitle', 'aboutHeading',
+        'aboutIntro', 'aboutBioTitle', 'aboutBioParagraph1', 'aboutBioParagraph2',
+        'aboutApproachTitle', 'aboutApproachDesc', 'aboutDeliveryTitle', 'aboutDeliveryDesc',
+        'tools', 'updatedAt'
+      ])
+      && data.keys().hasOnly([
+        'creativeProjects', 'designServices', 'yearsExperience', 'happyClients',
+        'whatsappNumber', 'email', 'instagramUrl', 'linkedinUrl', 'behanceUrl', 'facebookUrl',
+        'profileImageUrl', 'heroAvailability', 'heroHeadline', 'heroHeadlineAccent',
+        'heroSubtext', 'heroShowcaseTitle', 'heroShowcaseSubtitle', 'aboutHeading',
+        'aboutIntro', 'aboutBioTitle', 'aboutBioParagraph1', 'aboutBioParagraph2',
+        'aboutApproachTitle', 'aboutApproachDesc', 'aboutDeliveryTitle', 'aboutDeliveryDesc',
+        'tools', 'updatedAt'
+      ])
+      && data.creativeProjects is string && data.creativeProjects.size() >= 1 && data.creativeProjects.size() <= 40
+      && data.designServices is string && data.designServices.size() >= 1 && data.designServices.size() <= 40
+      && data.yearsExperience is string && data.yearsExperience.size() >= 1 && data.yearsExperience.size() <= 40
+      && data.happyClients is string && data.happyClients.size() >= 1 && data.happyClients.size() <= 40
+      && data.whatsappNumber is string && data.whatsappNumber.size() >= 1 && data.whatsappNumber.size() <= 30
+      && data.email is string && data.email.size() >= 1 && data.email.size() <= 150
+      && data.instagramUrl is string && data.instagramUrl.size() <= 300
+      && data.linkedinUrl is string && data.linkedinUrl.size() <= 300
+      && data.behanceUrl is string && data.behanceUrl.size() <= 300
+      && data.facebookUrl is string && data.facebookUrl.size() <= 300
+      && data.profileImageUrl is string && data.profileImageUrl.size() <= 2000
+      && data.heroAvailability is string && data.heroAvailability.size() >= 1 && data.heroAvailability.size() <= 120
+      && data.heroHeadline is string && data.heroHeadline.size() >= 1 && data.heroHeadline.size() <= 160
+      && data.heroHeadlineAccent is string && data.heroHeadlineAccent.size() >= 1 && data.heroHeadlineAccent.size() <= 160
+      && data.heroSubtext is string && data.heroSubtext.size() >= 1 && data.heroSubtext.size() <= 600
+      && data.heroShowcaseTitle is string && data.heroShowcaseTitle.size() >= 1 && data.heroShowcaseTitle.size() <= 120
+      && data.heroShowcaseSubtitle is string && data.heroShowcaseSubtitle.size() >= 1 && data.heroShowcaseSubtitle.size() <= 160
+      && data.aboutHeading is string && data.aboutHeading.size() >= 1 && data.aboutHeading.size() <= 160
+      && data.aboutIntro is string && data.aboutIntro.size() >= 1 && data.aboutIntro.size() <= 500
+      && data.aboutBioTitle is string && data.aboutBioTitle.size() >= 1 && data.aboutBioTitle.size() <= 140
+      && data.aboutBioParagraph1 is string && data.aboutBioParagraph1.size() >= 1 && data.aboutBioParagraph1.size() <= 1000
+      && data.aboutBioParagraph2 is string && data.aboutBioParagraph2.size() >= 1 && data.aboutBioParagraph2.size() <= 1000
+      && data.aboutApproachTitle is string && data.aboutApproachTitle.size() >= 1 && data.aboutApproachTitle.size() <= 100
+      && data.aboutApproachDesc is string && data.aboutApproachDesc.size() >= 1 && data.aboutApproachDesc.size() <= 300
+      && data.aboutDeliveryTitle is string && data.aboutDeliveryTitle.size() >= 1 && data.aboutDeliveryTitle.size() <= 100
+      && data.aboutDeliveryDesc is string && data.aboutDeliveryDesc.size() >= 1 && data.aboutDeliveryDesc.size() <= 300
+      && data.tools is list && data.tools.size() <= 20
+      && (data.tools.size() == 0 || isValidToolItem(data.tools[0]))
+      && data.updatedAt is timestamp;
+    }
+
+    function isValidInquiry(data) {
+      return data.keys().hasAll(['id', 'name', 'email', 'projectType', 'budget', 'message', 'createdAt'])
+      && data.keys().hasOnly(['id', 'name', 'email', 'projectType', 'budget', 'message', 'createdAt'])
+      && data.id is string && isValidId(data.id)
+      && data.name is string && data.name.size() >= 1 && data.name.size() <= 120
+      && data.email is string && data.email.size() >= 3 && data.email.size() <= 180
+      && data.projectType is string && data.projectType.size() >= 1 && data.projectType.size() <= 80
+      && data.budget is string && data.budget.size() >= 1 && data.budget.size() <= 80
+      && data.message is string && data.message.size() >= 1 && data.message.size() <= 3000
+      && data.createdAt is timestamp;
+    }
+
+    // --- Collection Rules ---
+    match /test/connection {
+      allow get: if true;
+    }
+
+    match /admins/{adminId} {
+      allow get: if isSignedIn() && isValidId(adminId) && (request.auth.uid == adminId || isAdmin());
+      allow list: if false;
+      allow create, update, delete: if false;
+    }
+
+    match /projects/{projectId} {
+      allow get: if isValidId(projectId);
+      allow list: if true;
+      allow create: if isAdmin()
+        && isValidId(projectId)
+        && isValidProject(incoming())
+        && incoming().id == projectId
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isAdmin()
+        && isValidId(projectId)
+        && isValidProject(incoming())
+        && incoming().id == existing().id
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'title', 'category', 'description', 'image_url', 'gallery_images',
+          'year', 'client', 'featured', 'display_order', 'updatedAt'
+        ]);
+      allow delete: if isAdmin() && isValidId(projectId);
+    }
+
+    match /testimonials/{testimonialId} {
+      allow get: if isValidId(testimonialId);
+      allow list: if true;
+      allow create: if isAdmin()
+        && isValidId(testimonialId)
+        && isValidTestimonial(incoming())
+        && incoming().id == testimonialId
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isAdmin()
+        && isValidId(testimonialId)
+        && isValidTestimonial(incoming())
+        && incoming().id == existing().id
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'name', 'company', 'role', 'text', 'avatar', 'updatedAt'
+        ]);
+      allow delete: if isAdmin() && isValidId(testimonialId);
+    }
+
+    match /settings/{settingId} {
+      allow get: if isValidId(settingId);
+      allow list: if true;
+      allow create: if isAdmin()
+        && settingId == 'main'
+        && isValidSiteSettings(incoming())
+        && incoming().updatedAt == request.time;
+      allow update: if isAdmin()
+        && settingId == 'main'
+        && isValidSiteSettings(incoming())
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'creativeProjects', 'designServices', 'yearsExperience', 'happyClients',
+          'whatsappNumber', 'email', 'instagramUrl', 'linkedinUrl', 'behanceUrl', 'facebookUrl',
+          'profileImageUrl', 'heroAvailability', 'heroHeadline', 'heroHeadlineAccent',
+          'heroSubtext', 'heroShowcaseTitle', 'heroShowcaseSubtitle', 'aboutHeading',
+          'aboutIntro', 'aboutBioTitle', 'aboutBioParagraph1', 'aboutBioParagraph2',
+          'aboutApproachTitle', 'aboutApproachDesc', 'aboutDeliveryTitle', 'aboutDeliveryDesc',
+          'tools', 'updatedAt'
+        ]);
+      allow delete: if false;
+    }
+
+    match /inquiries/{inquiryId} {
+      allow get: if isAdmin() && isValidId(inquiryId);
+      allow list: if isAdmin();
+      allow create: if isValidId(inquiryId)
+        && isValidInquiry(incoming())
+        && incoming().id == inquiryId
+        && incoming().createdAt == request.time;
+      allow update: if false;
+      allow delete: if isAdmin() && isValidId(inquiryId);
+    }
+  }
+}

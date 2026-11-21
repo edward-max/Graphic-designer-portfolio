@@ -1,0 +1,195 @@
+import { Project, SiteSettings, TestimonialItem } from '../types';
+
+export const INITIAL_TESTIMONIALS: TestimonialItem[] = [
+  {
+    id: 'test-1',
+    name: 'Marcus Vance',
+    company: 'Pulse Live Events',
+    role: 'Creative Director',
+    text: 'Koby transformed our festival visual identity and flyer rollout into a cohesive, sell-out campaign. Ticket inquiries jumped immediately after launch.',
+    avatar: '',
+    created_at: '2026-03-01T10:00:00.000Z',
+  },
+  {
+    id: 'test-2',
+    name: 'Elena Rostova',
+    company: 'Aethel Botanicals',
+    role: 'Founder & CEO',
+    text: 'Working with Koby was effortless. His typographic precision and luxury packaging direction gave our skincare launch an unmistakable retail presence.',
+    avatar: '',
+    created_at: '2026-02-15T10:00:00.000Z',
+  },
+  {
+    id: 'test-3',
+    name: 'Julian Sterling',
+    company: 'BLK-BOX Underground',
+    role: 'Label Manager',
+    text: 'When you need flyers and social creatives that cut straight through crowded feeds, Koby delivers bold work ahead of schedule every single time.',
+    avatar: '',
+    created_at: '2026-01-20T10:00:00.000Z',
+  },
+];
+
+export const DEFAULT_SITE_SETTINGS: SiteSettings = {
+  creativeProjects: '140+',
+  designServices: '6 Core',
+  yearsExperience: '5+ Years',
+  happyClients: '85+',
+  whatsappNumber: '15550192834',
+  email: 'koby.design@studio.com',
+  instagramUrl: 'https://instagram.com',
+  linkedinUrl: 'https://linkedin.com',
+  behanceUrl: 'https://behance.net',
+  facebookUrl: 'https://facebook.com',
+  profileImageUrl: '/src/assets/images/hero_editorial_showcase_1794870584088.jpg',
+  heroAvailability: 'Available for freelance projects',
+  heroHeadline: 'I Design Visuals That Make Brands',
+  heroHeadlineAccent: 'Impossible to Ignore.',
+  heroSubtext:
+    'I’m Koby, a graphic designer focused on creating bold, professional and memorable visual experiences for brands, businesses and individuals.',
+  heroShowcaseTitle: 'Koby Studio Direction',
+  heroShowcaseSubtitle: 'Identity Systems · Flyers · Editorial Print',
+  aboutHeading: 'Crafting Visual Stories with Clarity & Purpose',
+  aboutIntro:
+    'Combining strategic thinking with bold creative execution so brands stand out immediately across digital and print surfaces.',
+  aboutBioTitle: 'Graphic Designer · Visual Identity & Digital Design',
+  aboutBioParagraph1:
+    'I’m Koby, a graphic designer dedicated to building unmistakable visual identities, high-impact event flyers, and cohesive campaign systems for ambitious brands, businesses, and individuals.',
+  aboutBioParagraph2:
+    'My creative philosophy is straightforward: strong design removes noise and amplifies meaning. Every layout is built on disciplined typography, intentional contrast, and visual hierarchy that holds attention at first glance.',
+  aboutApproachTitle: 'Design Approach',
+  aboutApproachDesc: 'Research-driven visual direction tailored to your audience and industry.',
+  aboutDeliveryTitle: 'Production Ready',
+  aboutDeliveryDesc: 'Delivered with crisp color profiles for both print presses and social feeds.',
+  tools: [
+    { name: 'Adobe Photoshop', level: 'Expert', category: 'Photo Manipulation & Flyers' },
+    { name: 'Adobe Illustrator', level: 'Expert', category: 'Logos & Vector Systems' },
+    { name: 'Canva', level: 'Advanced', category: 'Social Campaigns & Templates' },
+    { name: 'CapCut', level: 'Advanced', category: 'Motion Reels & Promo Edits' },
+    { name: 'AI Design Tools', level: 'Advanced', category: 'Concept Exploration & Workflow' },
+  ],
+};
+
+export const INITIAL_PROJECTS: Project[] = [
+  {
+    id: 'proj-1',
+    title: 'Neon Void Festival Identity',
+    category: 'Flyers',
+    description:
+      'High-energy electronic music festival flyer system featuring brutalist geometric typography, electric violet light streaks, and modular event timetable layout.',
+    image_url: '/src/assets/images/flyer_neon_pulse_1794870584487.jpg',
+    gallery_images: [
+      '/src/assets/images/flyer_tokyo_night_1794870584498.jpg',
+      '/src/assets/images/flyer_vinyl_release_1794870600215.jpg',
+    ],
+    year: '2026',
+    client: 'Pulse Live Events',
+    featured: true,
+    display_order: 1,
+    created_at: '2026-03-10T10:00:00.000Z',
+  },
+  {
+    id: 'proj-2',
+    title: 'Aethel Botanical Skincare Branding',
+    category: 'Branding',
+    description:
+      'Complete visual identity and tactile packaging architecture for an organic luxury skincare line, pairing matte charcoal surfaces with refined serif wordmarks.',
+    image_url: '/src/assets/images/branding_aura_luxury_1794870584611.jpg',
+    gallery_images: [
+      '/src/assets/images/hero_editorial_showcase_1794870584088.jpg',
+    ],
+    year: '2026',
+    client: 'Aethel Botanicals',
+    featured: true,
+    display_order: 2,
+    created_at: '2026-02-22T10:00:00.000Z',
+  },
+  {
+    id: 'proj-3',
+    title: 'Neukinetik Club Night Flyer',
+    category: 'Flyers',
+    description:
+      'Kinetic Swiss-inspired club night poster blending monochrome documentary grain with bold diagonal cobalt-violet typography.',
+    image_url: '/src/assets/images/flyer_tokyo_night_1794870584498.jpg',
+    gallery_images: [
+      '/src/assets/images/flyer_neon_pulse_1794870584487.jpg',
+    ],
+    year: '2026',
+    client: 'BLK-BOX Underground',
+    featured: true,
+    display_order: 3,
+    created_at: '2026-02-05T10:00:00.000Z',
+  },
+  {
+    id: 'proj-4',
+    title: 'Velocity Performance Social Campaign',
+    category: 'Social Media',
+    description:
+      'High-conversion social media campaign templates and story motion frames engineered for athletic apparel launches across Instagram and TikTok.',
+    image_url: '/src/assets/images/social_velocity_campaign_1794870599985.jpg',
+    gallery_images: [],
+    year: '2025',
+    client: 'Velocity Gear',
+    featured: true,
+    display_order: 4,
+    created_at: '2025-11-18T10:00:00.000Z',
+  },
+  {
+    id: 'proj-5',
+    title: 'Beton & Form Architectural Poster',
+    category: 'Posters',
+    description:
+      'Swiss modernist exhibition poster celebrating concrete brutalist architecture with disciplined grid alignment and stark typographic contrast.',
+    image_url: '/src/assets/images/poster_swiss_architecture_1794870585821.jpg',
+    gallery_images: [],
+    year: '2025',
+    client: 'Museum für Gestaltung',
+    featured: true,
+    display_order: 5,
+    created_at: '2025-10-09T10:00:00.000Z',
+  },
+  {
+    id: 'proj-6',
+    title: 'Forge Coffee Roasters Print Suite',
+    category: 'Print Design',
+    description:
+      'Tactile specialty coffee packaging bags, letterpress kraft business cards, and single-origin tasting menus crafted for physical impact.',
+    image_url: '/src/assets/images/print_coffee_suite_1794870586663.jpg',
+    gallery_images: [],
+    year: '2026',
+    client: 'Forge Roasters London',
+    featured: false,
+    display_order: 6,
+    created_at: '2026-01-14T10:00:00.000Z',
+  },
+  {
+    id: 'proj-7',
+    title: 'Resonance Archives Vinyl Flyer',
+    category: 'Flyers',
+    description:
+      'Screen-printed aesthetic record release flyer combining distressed editorial headlines, warm metallic gold ink accents, and analog crowd photography.',
+    image_url: '/src/assets/images/flyer_vinyl_release_1794870600215.jpg',
+    gallery_images: [],
+    year: '2025',
+    client: 'Soundwave Collective',
+    featured: false,
+    display_order: 7,
+    created_at: '2025-09-20T10:00:00.000Z',
+  },
+  {
+    id: 'proj-8',
+    title: 'Aurora Studio Stationery System',
+    category: 'Branding',
+    description:
+      'Monochrome luxury stationery suite featuring embossed black business cards, custom envelopes, and minimalist typographic print collateral.',
+    image_url: '/src/assets/images/hero_editorial_showcase_1794870584088.jpg',
+    gallery_images: [
+      '/src/assets/images/branding_aura_luxury_1794870584611.jpg',
+    ],
+    year: '2026',
+    client: 'Aurora Design Co.',
+    featured: true,
+    display_order: 8,
+    created_at: '2026-01-03T10:00:00.000Z',
+  },
+];

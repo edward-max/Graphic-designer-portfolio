@@ -1,0 +1,259 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "A graphic design portfolio item displayed in the portfolio grid and flyer folder.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique project document ID",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "description": "Project title",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "category": {
+          "type": "string",
+          "description": "Portfolio category",
+          "enum": ["Flyers", "Branding", "Social Media", "Posters", "Print Design", "Other"]
+        },
+        "description": {
+          "type": "string",
+          "description": "Project summary and creative rationale",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "image_url": {
+          "type": "string",
+          "description": "Cover artwork URL",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "gallery_images": {
+          "type": "array",
+          "description": "Additional artwork image URLs (max 12)"
+        },
+        "year": {
+          "type": "string",
+          "description": "Completion year",
+          "minLength": 2,
+          "maxLength": 10
+        },
+        "client": {
+          "type": "string",
+          "description": "Optional client name",
+          "maxLength": 140
+        },
+        "featured": {
+          "type": "boolean",
+          "description": "Whether the project is featured"
+        },
+        "display_order": {
+          "type": "number",
+          "description": "Sort order index"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last-update timestamp"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "category",
+        "description",
+        "image_url",
+        "gallery_images",
+        "year",
+        "client",
+        "featured",
+        "display_order",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "A verified client testimonial displayed on the portfolio.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique testimonial document ID",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Client name",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "company": {
+          "type": "string",
+          "description": "Client company or brand",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "role": {
+          "type": "string",
+          "description": "Client title or role",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "text": {
+          "type": "string",
+          "description": "Testimonial quote",
+          "minLength": 1,
+          "maxLength": 1200
+        },
+        "avatar": {
+          "type": "string",
+          "description": "Optional client portrait URL",
+          "maxLength": 2000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last-update timestamp"
+        }
+      },
+      "required": ["id", "name", "company", "role", "text", "avatar", "createdAt", "updatedAt"]
+    },
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Global editable copy, profile image, stats, social URLs, and software stack.",
+      "type": "object",
+      "properties": {
+        "creativeProjects": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "designServices": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "yearsExperience": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "happyClients": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "whatsappNumber": { "type": "string", "minLength": 1, "maxLength": 30 },
+        "email": { "type": "string", "minLength": 1, "maxLength": 150 },
+        "instagramUrl": { "type": "string", "maxLength": 300 },
+        "linkedinUrl": { "type": "string", "maxLength": 300 },
+        "behanceUrl": { "type": "string", "maxLength": 300 },
+        "facebookUrl": { "type": "string", "maxLength": 300 },
+        "profileImageUrl": { "type": "string", "maxLength": 2000 },
+        "heroAvailability": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "heroHeadline": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "heroHeadlineAccent": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "heroSubtext": { "type": "string", "minLength": 1, "maxLength": 600 },
+        "heroShowcaseTitle": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "heroShowcaseSubtitle": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "aboutHeading": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "aboutIntro": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "aboutBioTitle": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "aboutBioParagraph1": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "aboutBioParagraph2": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "aboutApproachTitle": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "aboutApproachDesc": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "aboutDeliveryTitle": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "aboutDeliveryDesc": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "tools": { "type": "array", "description": "Daily tools & software stack (max 20)" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "creativeProjects",
+        "designServices",
+        "yearsExperience",
+        "happyClients",
+        "whatsappNumber",
+        "email",
+        "instagramUrl",
+        "linkedinUrl",
+        "behanceUrl",
+        "facebookUrl",
+        "profileImageUrl",
+        "heroAvailability",
+        "heroHeadline",
+        "heroHeadlineAccent",
+        "heroSubtext",
+        "heroShowcaseTitle",
+        "heroShowcaseSubtitle",
+        "aboutHeading",
+        "aboutIntro",
+        "aboutBioTitle",
+        "aboutBioParagraph1",
+        "aboutBioParagraph2",
+        "aboutApproachTitle",
+        "aboutApproachDesc",
+        "aboutDeliveryTitle",
+        "aboutDeliveryDesc",
+        "tools",
+        "updatedAt"
+      ]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "A project inquiry submitted through the portfolio contact form (PII restricted to admin).",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "email": { "type": "string", "minLength": 3, "maxLength": 180 },
+        "projectType": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "budget": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "message": { "type": "string", "minLength": 1, "maxLength": 3000 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "email", "projectType", "budget", "message", "createdAt"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized administrator registry document.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "email": { "type": "string", "minLength": 3, "maxLength": 180 }
+      },
+      "required": ["uid", "email"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": { "$ref": "#/entities/Project" },
+      "description": "Portfolio design projects (publicly readable, admin-managed)."
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": { "$ref": "#/entities/Testimonial" },
+      "description": "Client testimonials (publicly readable, admin-managed)."
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/SiteSettings" },
+      "description": "Site copy, profile image, stats, social links, and tools stack (publicly readable, admin-managed)."
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": { "$ref": "#/entities/Inquiry" },
+      "description": "Private contact form submissions containing PII (publicly creatable, readable/deletable by admin only)."
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Registered administrator UIDs (self/admin read-only, no client writes)."
+    }
+  }
+}

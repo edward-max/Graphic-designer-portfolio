@@ -1,0 +1,55 @@
+{
+  "creativeProjects": "100+",
+  "designServices": "6 Core",
+  "yearsExperience": "4+ Years",
+  "happyClients": "50+",
+  "whatsappNumber": "233531976994",
+  "email": "koby.design@studio.com",
+  "instagramUrl": "https://www.instagram.com/kpexoredem/",
+  "linkedinUrl": "https://linkedin.com",
+  "behanceUrl": "https://behance.net",
+  "facebookUrl": "https://facebook.com",
+  "profileImageUrl": "/src/assets/images/hero_editorial_showcase_1794870584088.jpg",
+  "heroAvailability": "Available for freelance projects",
+  "heroHeadline": "I Design Visuals That Make Brands",
+  "heroHeadlineAccent": "Impossible to Ignore.",
+  "heroSubtext": "I’m Koby, a graphic designer focused on creating bold, professional and memorable visual experiences for brands, businesses and individuals.",
+  "heroShowcaseTitle": "Koby Studio Direction",
+  "heroShowcaseSubtitle": "Identity Systems · Flyers · Editorial Print",
+  "aboutHeading": "Crafting Visual Stories with Clarity & Purpose",
+  "aboutIntro": "Combining strategic thinking with bold creative execution so brands stand out immediately across digital and print surfaces.",
+  "aboutBioTitle": "Graphic Designer · Visual Identity & Digital Design",
+  "aboutBioParagraph1": "I’m Koby, a graphic designer dedicated to building unmistakable visual identities, high-impact event flyers, and cohesive campaign systems for ambitious brands, businesses, and individuals.",
+  "aboutBioParagraph2": "My creative philosophy is straightforward: strong design removes noise and amplifies meaning. Every layout is built on disciplined typography, intentional contrast, and visual hierarchy that holds attention at first glance.",
+  "aboutApproachTitle": "Design Approach",
+  "aboutApproachDesc": "Research-driven visual direction tailored to your audience and industry.",
+  "aboutDeliveryTitle": "Production Ready",
+  "aboutDeliveryDesc": "Delivered with crisp color profiles for both print presses and social feeds.",
+  "tools": [
+    {
+      "name": "Adobe Photoshop",
+      "level": "Expert",
+      "category": "Photo Manipulation & Flyers"
+    },
+    {
+      "name": "Adobe Illustrator",
+      "level": "Expert",
+      "category": "Logos & Vector Systems"
+    },
+    {
+      "name": "Canva",
+      "level": "Advanced",
+      "category": "Social Campaigns & Templates"
+    },
+    {
+      "name": "CapCut",
+      "level": "Advanced",
+      "category": "Motion Reels & Promo Edits"
+    },
+    {
+      "name": "AI Design Tools",
+      "level": "Advanced",
+      "category": "Concept Exploration & Workflow"
+    }
+  ]
+}
